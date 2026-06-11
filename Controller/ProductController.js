@@ -11,7 +11,6 @@ var getAllProducts = async (req, res) => {
 
         var cacheKey = `allproducts:${page}:${limit}`;
 
-       console.log(redisClient)
         if(redisClient.isOpen) {
             var cachedData = await redisClient.get(cacheKey);
             if (cachedData) {

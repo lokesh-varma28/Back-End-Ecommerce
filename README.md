@@ -2,14 +2,14 @@
 
 ## Base URL
 
-##  https://apis-4-hilb.onrender.com
+##  https://e-comerce-ikpo.onrender.com
 
 ```bash
 http://localhost:3000
 
 
 // LIVE SERVER
-https://apis-4-hilb.onrender.com
+https://e-comerce-ikpo.onrender.com
 ```
 
 ---
@@ -17,6 +17,8 @@ https://apis-4-hilb.onrender.com
 # Authentication APIs
 
 ## Register User
+
+Creates an unverified account in the database, then sends an OTP to the email.
 
 ### Endpoint
 
@@ -31,6 +33,54 @@ POST /register
   "name": "Lokesh",
   "email": "lokesh@gmail.com",
   "password": "123456"
+}
+```
+
+### Response
+
+```json
+{
+  "message": "Account created. OTP sent to email.",
+  "email": "lokesh@gmail.com"
+}
+```
+
+---
+
+## Verify OTP
+
+Verifies the email for an existing unverified account.
+
+### Endpoint
+
+```bash
+POST /verify-otp
+```
+
+### Request Body
+
+```json
+{
+  "email": "lokesh@gmail.com",
+  "otp": "123456"
+}
+```
+
+---
+
+## Resend OTP
+
+### Endpoint
+
+```bash
+POST /resend-otp
+```
+
+### Request Body
+
+```json
+{
+  "email": "lokesh@gmail.com"
 }
 ```
 
@@ -375,7 +425,7 @@ Backend does:
 * Hash password
 * Generate OTP
 * Hash OTP
-* Save user
+* **Create user account** (`isVerified: false`)
 * Send OTP email
 
 ---
@@ -1002,4 +1052,4 @@ npm start
 
 # 👨‍💻 Author
 
-lokesh varma
+Lokesh Varma
