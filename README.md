@@ -2,14 +2,14 @@
 
 ## Base URL
 
-##  https://e-comerce-ikpo.onrender.com
+##  https://apis-6-g3nj.onrender.com
 
 ```bash
 http://localhost:3000
 
 
 // LIVE SERVER
-https://e-comerce-ikpo.onrender.com
+https://apis-6-g3nj.onrender.com
 ```
 
 ---
