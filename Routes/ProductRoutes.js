@@ -5,7 +5,10 @@ const {
   getSingleProduct,
   addNewProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getRelatedProducts,
+  getRecommendedProducts,
+   addReview
 } = require("../Controller/ProductController");
 
 const authMiddleware = require("../MiddleWare/authMiddleware");
@@ -17,9 +20,14 @@ const router = express.Router();
 
 router.get("/", getAllProducts);
 
+router.get("/related/:id", getRelatedProducts);
+router.get(
+    "/recommend/:id",
+    getRecommendedProducts
+);
 
-router.get("/:id", authMiddleware, getSingleProduct);
-
+// router.get("/:id", authMiddleware, getSingleProduct);
+router.get("/:id", getSingleProduct);
 
 router.post(
   "/",
@@ -43,6 +51,13 @@ router.delete(
   authMiddleware,
   adminMiddleware,
   deleteProduct
+);
+// ================= ADD REVIEW =================
+
+router.post(
+    "/:id/review",
+    authMiddleware,
+    addReview
 );
 
 module.exports = router;

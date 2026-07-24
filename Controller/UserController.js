@@ -2,14 +2,14 @@ var User = require("../Model/UserModel")
 var bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-const transporter = require("../config/Mail")
+const transporter = require("../config/nodemailer")
 const { generateAccessToken, generateRefreshToken } = require("../helper/token")
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 const OTP_EMAIL_TEMPLATE = (otp, subtitle) => `
     <div style="font-family: sans-serif; padding: 20px; background-color: #09090b; color: #ffffff; border-radius: 12px; max-width: 400px; margin: auto; border: 1px solid #27272a;">
-        <h2 style="color: #6366f1; margin-bottom: 5px;">MOBI-SHOP</h2>
+        <h2 style="color: #6366f1; margin-bottom: 5px;">HOME STORE</h2>
         <p style="color: #a1a1aa; font-size: 14px;">${subtitle}</p>
         <hr style="border-color: #27272a; margin: 20px 0;"/>
         <span style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #71717a; display: block; margin-bottom: 8px;">Your Security OTP Code</span>
@@ -69,12 +69,30 @@ var registerUser = async (req, res) => {
             isVerified: false
         })
 
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: trimmedEmail,
-            subject: "MOBI-SHOP - Email Verification OTP",
-            html: OTP_EMAIL_TEMPLATE(otp, "Verify your account to complete registration.")
-        })
+        try {
+
+    await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: trimmedEmail,
+        subject: "HOME STORE - Email Verification OTP",
+        html: OTP_EMAIL_TEMPLATE(
+            otp,
+            "Verify your account to complete registration."
+        )
+    })
+
+    console.log("OTP Email Sent")
+
+} catch (mailError) {
+
+    console.log("MAIL ERROR")
+    console.log(mailError)
+
+    return res.status(500).json({
+        message: "Email sending failed",
+        error: mailError.message
+    })
+}
 
         res.status(201).json({
             message: "Account created. OTP sent to email.",
@@ -201,9 +219,9 @@ var resendOtp = async (req, res) => {
         await user.save()
 
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: process.env.EMAIL,
             to: email.trim(),
-            subject: "MOBI-SHOP - Resend OTP",
+            subject: "HOME STORE - Resend OTP",
             html: OTP_EMAIL_TEMPLATE(otp, "Your requested new authorization code.")
         })
 
@@ -276,10 +294,26 @@ var login = async (req, res) => {
         const refreshToken = generateRefreshToken(userExists)
 
         res.status(200).json({
-            message: "Login successful",
-            accessToken,
-            refreshToken
-        })
+
+    message: "Login successful",
+
+    token: accessToken,
+
+    refreshToken,
+
+    user: {
+
+        _id: userExists._id,
+
+        name: userExists.name,
+
+        email: userExists.email,
+
+        role: userExists.role
+
+    }
+
+});
 
     } catch (error) {
         console.log(error)
@@ -366,9 +400,9 @@ var forgotPassword = async (req, res) => {
         await user.save()
 
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: process.env.EMAIL,
             to: email.trim(),
-            subject: "MOBI-SHOP - Password Reset OTP",
+            subject: "HOME STORE - Password Reset OTP",
             html: OTP_EMAIL_TEMPLATE(resetOtp, "Use this code to reset your password.")
         })
 

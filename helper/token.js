@@ -13,7 +13,7 @@ const generateAccessToken = (user) => {
         process.env.JWT_TOKEN,
 
         {
-            expiresIn: "15m"
+            expiresIn: "1d"
         }
     )
 }

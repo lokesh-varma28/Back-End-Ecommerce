@@ -21,18 +21,19 @@ const {
     resetPassword,
     refreshTokenController
 } = require("../Controller/UserController")
+const authLimiter = require("../MiddleWare/authLimiter")
 
 // REGISTER
-router.post("/register", validate(registerSchema), registerUser)
+router.post("/register",authLimiter ,validate(registerSchema), registerUser)
 
 // LOGIN
-router.post("/login", validate(loginSchema), login)
+router.post("/login", authLimiter, validate(loginSchema), login)
 
 // VERIFY OTP
-router.post("/verify-otp", validate(verifyOtpSchema), verifyOtp)
+router.post("/verify-otp", authLimiter, validate(verifyOtpSchema), verifyOtp)
 
 // RESEND OTP
-router.post("/resend-otp", validate(resendOtpSchema), resendOtp)
+router.post("/resend-otp", authLimiter,validate(resendOtpSchema), resendOtp)
 
 // FORGOT PASSWORD
 router.post("/forgot-password", validate(forgotPasswordSchema), forgotPassword)

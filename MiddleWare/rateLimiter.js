@@ -19,9 +19,9 @@ const createLimiters = ()=>{
 
     const productLimiter = rateLimit({
 
-        windowMs:15 * 60 * 1000,
+        windowMs: 60 * 1000,
 
-        max:100,
+        max:1000,
 
         message:"Too many product requests",
 
@@ -43,9 +43,9 @@ const createLimiters = ()=>{
 
     const adminLimiter = rateLimit({
 
-        windowMs:15 * 60 * 1000,
+        windowMs: 60 * 1000,
 
-        max:20,
+        max:1000,
 
         message:"Too many admin requests",
 
