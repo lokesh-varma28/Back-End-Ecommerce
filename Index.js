@@ -35,6 +35,7 @@ const inventoryRoutes = require("./Routes/inventoryRoutes");
 const notificationRoutes = require("./Routes/notificationRoutes");
 const categoryRoutes = require("./Routes/categoryRoutes");
 const brandRoutes = require("./Routes/brandRoutes");
+const googleAuthRoutes = require("./Routes/googleAuthRoutes");
 
 // middleware setup
 app.use(cookieParser())
@@ -95,6 +96,7 @@ const startServer = async () => {
     app.use("/", notificationRoutes);
     app.use("/", categoryRoutes);
     app.use("/", brandRoutes);
+    app.use("/auth", googleAuthRoutes); // Google OAuth
 
     await connectToDatabase()
 

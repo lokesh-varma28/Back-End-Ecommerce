@@ -10,27 +10,40 @@ var userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    // optional – Google OAuth users have no password
     password: {
         type: String,
-        required: true
+        required: false,
+        default: null
+    },
+    // Google OAuth
+    googleId: {
+        type: String,
+        default: null
+    },
+    avatar: {
+        type: String,
+        default: null
+    },
+    authProvider: {
+        type: String,
+        enum: ["local", "google"],
+        default: "local"
     },
     role: {
         type: String,
         enum: ["user", "admin"],
         default: "user"
     },
-
-    isVerified:{
-        type:Boolean,
-        default:false
+    isVerified: {
+        type: Boolean,
+        default: false
     },
-
-    otp:{
-        type:String
+    otp: {
+        type: String
     },
-
-    otpExpires:{
-        type:Date
+    otpExpires: {
+        type: Date
     },
     resetOtp: {
         type: String
@@ -38,34 +51,28 @@ var userSchema = new mongoose.Schema({
     refreshToken: {
         type: String
     },
-
     otpAttempts: {
         type: Number,
         default: 0
     },
-
     otpLastSent: {
         type: Date
     },
-
     resetOtpExpires: {
         type: Date
     },
-
-    lockUntil:{
-        type:Date
+    lockUntil: {
+        type: Date
     },
-
-    loginAttempts:{
-        type:Number,
-        default:0
+    loginAttempts: {
+        type: Number,
+        default: 0
     },
-
     wishlist: [
         {
             type: String
         }
     ]
-})
+}, { timestamps: true })
 
 module.exports = mongoose.models.User || mongoose.model("User", userSchema)
