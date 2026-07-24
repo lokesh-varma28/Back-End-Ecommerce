@@ -1,17 +1,3 @@
-// const express = require("express")
-// const router = express.Router()
-
-// const {
-//     createCoupon,
-//     applyCoupon
-// } = require("../controller/couponController")
-
-// const auth = require("../Middleware/authMiddleware")
-
-// router.post("/create", createCoupon)
-// router.post("/apply", auth, applyCoupon)
-
-// module.exports = router
 
 const express = require("express")
 

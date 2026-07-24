@@ -1,30 +1,4 @@
-// const express = require("express");
 
-// const router = express.Router();
-
-// const auth = require("../MiddleWare/authMiddleware");
-// const admin = require("../MiddleWare/adminMiddleware");
-
-// const {
-//     requestReturn,
-//     getReturnRequests,
-//     updateReturnStatus
-// } = require("../Controller/returnController");
-
-// // User
-// router.post("/return", auth, requestReturn);
-
-// // Admin
-// router.get("/admin/returns", auth, admin, getReturnRequests);
-
-// router.put(
-//     "/admin/returns/:id",
-//     auth,
-//     admin,
-//     updateReturnStatus
-// );
-
-// module.exports = router;
 
 const express = require("express");
 

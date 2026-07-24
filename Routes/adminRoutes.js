@@ -4,19 +4,6 @@ const router = express.Router();
 const authMiddleware = require("../MiddleWare/authMiddleware");
 const adminMiddleware = require("../MiddleWare/adminMiddleware");
 
-// const {
-//     dashboard,
-//     getUsers,
-//     getOrders,
-//     getProducts,
-//     getCoupons,
-//     addProduct,
-//     updateProduct,
-//     deleteProduct,
-//     updateOrderStatus,
-//     getSalesAnalytics,
-//     getTopProducts
-// } = require("../Controller/adminController");
 
 const upload = require("../MiddleWare/imageMiddleware");
 const {
