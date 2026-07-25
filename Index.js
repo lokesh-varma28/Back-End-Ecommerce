@@ -49,7 +49,7 @@ app.use(
 app.use(
     cors({
         origin: [
-            "https://front-end-ecommerce-gin2.vercel.app",
+            "https://front-end-ecommerce-gin2-git-main-lokesh-varma28s-projects.vercel.app",
         ],
         credentials: true,
         exposedHeaders: ["Content-Disposition"],
