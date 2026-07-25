@@ -48,7 +48,9 @@ app.use(
 
 app.use(
     cors({
-        origin: true,
+        origin: [
+            "https://front-end-ecommerce-gin2.vercel.app",
+        ],
         credentials: true,
         exposedHeaders: ["Content-Disposition"],
     })
