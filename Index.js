@@ -43,6 +43,9 @@ app.use(cookieParser())
 app.use(
     helmet({
         crossOriginResourcePolicy: { policy: "cross-origin" },
+        // Google OAuth popup needs to call window.closed on the opener.
+        // COOP "same-origin" (Helmet default) blocks that — set to unsafe-none.
+        crossOriginOpenerPolicy: { policy: "unsafe-none" },
     })
 );
 
