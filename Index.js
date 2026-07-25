@@ -49,6 +49,7 @@ app.use(
 app.use(
     cors({
         origin: [
+              "http://localhost:5173",
             "https://front-end-ecommerce-gin2-git-main-lokesh-varma28s-projects.vercel.app",
         ],
         credentials: true,
