@@ -4,6 +4,12 @@ var razorpay = require("../config/razorpay")
 var mongoose = require("mongoose")
 
 var checkout = async (req, res) => {
+    // Guard: fail fast if Razorpay credentials are missing
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+        return res.status(500).json({
+            error: "Payment gateway not configured. RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET is missing on the server."
+        })
+    }
     console.log("RAZORPAY INSTANCE:", razorpay);
     try {
         var userId = req.user.userId
@@ -98,7 +104,19 @@ var checkout = async (req, res) => {
 
     } catch (error) {
         console.log("FULL ERROR:", error)
-        return res.status(500).json({ error: error.message || "server error" })
+
+        // Razorpay API errors come back as objects with a nested error field
+        const razorpayMsg =
+            error?.error?.description ||
+            error?.error?.reason ||
+            error?.message ||
+            "server error"
+
+        return res.status(500).json({
+            error: razorpayMsg,
+            // Only expose details in non-production for easier debugging
+            details: process.env.NODE_ENV !== "production" ? error : undefined
+        })
     }
 }
 
