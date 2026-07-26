@@ -16,6 +16,7 @@ const getAllOrders = async (req, res) => {
                 path: "items.product",
                 select: "title price image"
             })
+            .populate("shippingAddress")
             .sort({ createdAt: -1 });
 
         return res.status(200).json({

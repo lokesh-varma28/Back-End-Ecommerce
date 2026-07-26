@@ -125,9 +125,10 @@ const createOrderService = async ({
         let finalTotal = total;
 
         if (discount > 0) {
-
-            finalTotal = finalAmount || (total - discount);
-
+            // Use the pre-calculated finalAmount from client if provided,
+            // otherwise compute it. Never go below 0.
+            finalTotal = (finalAmount > 0 ? finalAmount : total - discount);
+            if (finalTotal < 0) finalTotal = 0;
         }
 
         // ===========================
